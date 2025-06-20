@@ -32,7 +32,7 @@ const LocationMap: React.FC<LocationMapProps> = ({ onLocationSelect, initialPosi
         <MapContainer 
             center={initialPosition} 
             zoom={5} 
-            style={{ height: '300px', width: '100%', borderRadius: '0.25rem' }}
+            style={{ height: '400px', width: '100%', borderRadius: '0.25rem' }}
         >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

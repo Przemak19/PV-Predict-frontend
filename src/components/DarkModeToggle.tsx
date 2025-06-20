@@ -7,7 +7,7 @@ const DarkModeToggle: React.FC<{ darkMode: boolean; setDarkMode: (value: boolean
   <Button 
     variant={darkMode ? 'light' : 'dark'} 
     onClick={() => setDarkMode(!darkMode)}
-    className="me-2"
+    className="me-3 mt-2"
   >
     <FontAwesomeIcon icon={darkMode ? faSun : faMoon} /> {darkMode ? 'Light' : 'Dark'} Mode
   </Button>

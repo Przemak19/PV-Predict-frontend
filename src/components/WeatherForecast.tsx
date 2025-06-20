@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Spinner, Alert } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import ForecastTable from './ForecastTable';
 import WeeklySummaryCard from './WeeklySummaryCard';
 import DarkModeToggle from './DarkModeToggle';
 import LocationControls from './LocationControls';
-import LocationModal from './LocationModal';
+import LocationMap from './LocationMap';
+
 
 interface DailyInformationDto {
   date: string;
@@ -32,7 +31,6 @@ const WeatherForecast: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [darkMode, setDarkMode] = useState(false);
-  const [showMap, setShowMap] = useState(false);
   const [manualLocation, setManualLocation] = useState({ lat: '', lng: '' });
 
   useEffect(() => {
@@ -80,7 +78,6 @@ const WeatherForecast: React.FC = () => {
 
   const handleMapLocationSelect = (lat: number, lng: number) => {
     setLocation({ latitude: lat, longitude: lng });
-    setShowMap(false);
   };
 
   const handleManualLocationSubmit = (lat: number, lng: number) => {
@@ -105,13 +102,8 @@ const WeatherForecast: React.FC = () => {
   return (
     <Container className={`mt-4 mb-5 ${darkMode ? 'dark-mode' : ''}`}>
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="mb-0">7-Day Solar Energy Forecast for 2,5 kW PV</h2>
-        <div>
-          <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-          <button className="btn btn-primary" onClick={() => setShowMap(true)}>
-            <FontAwesomeIcon icon={faMapMarkerAlt} /> Change Location
-          </button>
-        </div>
+        <h2 className="mb-0">7-Day Solar Energy Forecast</h2>
+        <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
       </div>
 
       {error && (
@@ -127,13 +119,20 @@ const WeatherForecast: React.FC = () => {
 
       {location && (
         <p className="text-center mb-4">
-          Showing forecast for: Latitude <strong>{location.latitude.toFixed(4)}</strong>, Longitude <strong>{location.longitude.toFixed(4)}</strong>
+          Showing forecast for: Latitude {location.latitude.toFixed(4)}, Longitude {location.longitude.toFixed(4)}
         </p>
       )}
 
       <ForecastTable forecast={forecast} darkMode={darkMode} />
       {summary && <WeeklySummaryCard summary={summary} />}
-      <LocationModal show={showMap} onHide={() => setShowMap(false)} location={location} onSelect={handleMapLocationSelect} />
+      {location && (
+        <div className="mt-4">
+          <LocationMap
+            onLocationSelect={handleMapLocationSelect}
+            initialPosition={[location.latitude, location.longitude]}
+          />
+        </div>
+      )}
     </Container>
   );
 };
