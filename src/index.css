@@ -1,0 +1,56 @@
+body {
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode {
+  background-color: #212529;
+  color: #f8f9fa;
+}
+
+.dark-mode .card {
+  background-color: #343a40;
+  color: #f8f9fa;
+  border-color: #495057;
+}
+
+.dark-mode .table {
+  color: #f8f9fa;
+}
+
+.dark-mode .table-dark {
+  --bs-table-bg: #343a40;
+  --bs-table-striped-bg: #3d4348;
+  --bs-table-striped-color: #f8f9fa;
+  --bs-table-active-bg: #3d4348;
+  --bs-table-active-color: #f8f9fa;
+  --bs-table-hover-bg: #3d4348;
+  --bs-table-hover-color: #f8f9fa;
+}
+
+.weather-icon {
+  color: #4a6baf;
+}
+
+.dark-mode .weather-icon {
+  color: #6c8eeb;
+}
+
+.lead {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .d-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .d-flex > * {
+    margin-bottom: 0.5rem;
+  }
+}
