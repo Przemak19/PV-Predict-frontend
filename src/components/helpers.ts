@@ -18,3 +18,7 @@ export const formatDate = (dateString: string) => {
     (date.getMonth() + 1).toString().padStart(2, '0')}/${
     date.getFullYear()}`;
 };
+
+export const normalizeLng = (lng: number): number => {
+  return ((lng + 180) % 360 + 360) % 360 - 180;
+};

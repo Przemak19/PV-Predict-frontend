@@ -6,6 +6,7 @@ import WeeklySummaryCard from './WeeklySummaryCard';
 import DarkModeToggle from './DarkModeToggle';
 import LocationControls from './LocationControls';
 import LocationMap from './LocationMap';
+import { normalizeLng } from './helpers';
 
 interface DailyInformationDto {
   date: string;
@@ -79,7 +80,7 @@ const WeatherForecast: React.FC = () => {
   };
 
   const handleMapLocationSelect = (lat: number, lng: number) => {
-    setLocation({ latitude: lat, longitude: lng });
+    setLocation({ latitude: lat, longitude: normalizeLng(lng) });
   };
 
   const handleManualLocationSubmit = (lat: number, lng: number) => {
