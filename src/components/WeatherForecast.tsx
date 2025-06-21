@@ -32,6 +32,8 @@ const WeatherForecast: React.FC = () => {
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [darkMode, setDarkMode] = useState(false);
   const [manualLocation, setManualLocation] = useState({ lat: '', lng: '' });
+  const baseUrl = import.meta.env.REACT_APP_API_URL || "http://localhost:8080";
+
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -63,8 +65,8 @@ const WeatherForecast: React.FC = () => {
   const fetchWeatherData = async () => {
     try {
       setLoading(true);
-      const forecastResponse = await axios.get(`http://localhost:8080/api/predict/forecast?latitude=${location?.latitude}&longitude=${location?.longitude}`);
-      const summaryResponse = await axios.get(`http://localhost:8080/api/predict/summary?latitude=${location?.latitude}&longitude=${location?.longitude}`);
+      const forecastResponse = await axios.get(`${baseUrl}/api/predict/forecast?latitude=${location?.latitude}&longitude=${location?.longitude}`);
+      const summaryResponse = await axios.get(`${baseUrl}/api/predict/summary?latitude=${location?.latitude}&longitude=${location?.longitude}`);
 
       setForecast(forecastResponse.data);
       setSummary(summaryResponse.data);
