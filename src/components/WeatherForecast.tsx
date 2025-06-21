@@ -7,7 +7,6 @@ import DarkModeToggle from './DarkModeToggle';
 import LocationControls from './LocationControls';
 import LocationMap from './LocationMap';
 
-
 interface DailyInformationDto {
   date: string;
   weatherCode: number;
@@ -32,7 +31,7 @@ const WeatherForecast: React.FC = () => {
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
   const [darkMode, setDarkMode] = useState(false);
   const [manualLocation, setManualLocation] = useState({ lat: '', lng: '' });
-  const baseUrl = import.meta.env.REACT_APP_API_URL || "http://localhost:8080";
+  const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 
   useEffect(() => {
@@ -65,6 +64,7 @@ const WeatherForecast: React.FC = () => {
   const fetchWeatherData = async () => {
     try {
       setLoading(true);
+      console.log(baseUrl);
       const forecastResponse = await axios.get(`${baseUrl}/api/predict/forecast?latitude=${location?.latitude}&longitude=${location?.longitude}`);
       const summaryResponse = await axios.get(`${baseUrl}/api/predict/summary?latitude=${location?.latitude}&longitude=${location?.longitude}`);
 
