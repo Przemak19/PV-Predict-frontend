@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0',
+    allowedHosts: ['pv-predict.onrender.com'],
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
